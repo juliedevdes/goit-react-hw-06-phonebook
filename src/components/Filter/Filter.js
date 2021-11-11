@@ -3,12 +3,15 @@ import useLocalSt from "../../hooks/useLocalSt";
 import s from "./Filter.module.css";
 import PropTypes from "prop-types";
 
-export default function Filter({ onChange }) {
-  const [filterValue, setFilter] = useLocalSt("filterValue", "");
+import { connect } from "react-redux";
+import { handleFilter } from "../../redux/actions";
+
+function Filter({ handleFilter, filter }) {
+  //const [filterValue, setFilter] = useLocalSt("filterValue", "");
 
   const handleFilterChange = (e) => {
-    setFilter(e.currentTarget.value);
-    onChange(e.currentTarget.value);
+    // setFilter(e.currentTarget.value);
+    handleFilter(e.currentTarget.value);
   };
 
   return (
@@ -19,7 +22,7 @@ export default function Filter({ onChange }) {
         className={s.input}
         name="filterValue"
         onChange={handleFilterChange}
-        value={filterValue}
+        value={filter}
       />
     </label>
   );
@@ -28,3 +31,13 @@ export default function Filter({ onChange }) {
 Filter.propTypes = {
   onChange: PropTypes.func,
 };
+
+const mapStatetoProp = (state) => ({
+  filter: state.filter,
+});
+
+const mapDispatchToProp = (dispatch) => ({
+  handleFilter: (value) => dispatch(handleFilter(value)),
+});
+
+export default connect(mapStatetoProp, mapDispatchToProp)(Filter);

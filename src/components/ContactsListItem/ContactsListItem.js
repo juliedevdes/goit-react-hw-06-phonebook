@@ -1,7 +1,10 @@
 import s from "./ContactsListItem.module.css";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-export default function ContasctsListItem({ id, name, number, removeContact }) {
+import { deleteContact } from "../../redux/actions";
+
+function ContasctsListItem({ id, name, number, removeContact }) {
   return (
     <div>
       <span className={s.name}> {name}</span>
@@ -19,3 +22,9 @@ ContasctsListItem.propTypes = {
   number: PropTypes.string.isRequired,
   removeContact: PropTypes.func.isRequired,
 };
+
+const mapDispatchToProp = (dispatch) => ({
+  removeContact: (id) => dispatch(deleteContact(id)),
+});
+
+export default connect(null, mapDispatchToProp)(ContasctsListItem);

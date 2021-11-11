@@ -1,11 +1,11 @@
-export const handleInputNumber = (value) => ({
-  type: "HANDLE_INPUT_NUMBER",
+export const handleFilter = (value) => ({
+  type: "HANDLE_FILTER",
   payload: value,
 });
 
-export const handleInputName = (value) => ({
-  type: "HANDLE_INPUT_NAME",
-  payload: value,
+export const deleteContact = (id) => ({
+  type: "DELETE_CONTACT",
+  payload: id,
 });
 
 export const submit = (contact) => ({

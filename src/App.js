@@ -7,41 +7,24 @@ import useLocalSt from "./hooks/useLocalSt";
 import s from "./App.module.css";
 
 export default function App() {
-  const [contacts, setContacts] = useLocalSt("contacts", []);
-  const [filter, setFilter] = useLocalSt("filter", "");
+  // const [contacts, setContacts] = useLocalSt("contacts", []);
+  // const [filter, setFilter] = useLocalSt("filter", "");
 
-  const onSubmit = (formState) => {
-    if (!contacts.some((el) => el.name === formState.name)) {
-      setContacts((prevs) => [...prevs, formState]);
-    } else {
-      alert("There is already contact with the same name");
-    }
-  };
+  // const removeContact = (contactId) => {
+  //   setContacts((s) => s.filter((contact) => contact.id !== contactId));
+  // };
 
-  const removeContact = (contactId) => {
-    setContacts((s) => s.filter((contact) => contact.id !== contactId));
-  };
-
-  const updateFilter = (value) => {
-    setFilter(value);
-  };
-
-  const getVisibleContacts = () => {
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
+  // const updateFilter = (value) => {
+  //   setFilter(value);
+  // };
 
   return (
     <div className={s.root}>
       <h2>Phonebook</h2>
-      <ContacsForm onSubmit={onSubmit} />
+      <ContacsForm />
       <h2>Contacts</h2>
-      <Filter onChange={updateFilter} />
-      <ContasctsList
-        contacts={getVisibleContacts()}
-        removeContact={removeContact}
-      />
+      <Filter />
+      <ContasctsList />
     </div>
   );
 }
