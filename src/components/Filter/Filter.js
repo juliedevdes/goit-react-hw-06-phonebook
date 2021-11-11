@@ -1,5 +1,3 @@
-import useLocalSt from "../../hooks/useLocalSt";
-
 import s from "./Filter.module.css";
 import PropTypes from "prop-types";
 
@@ -7,10 +5,7 @@ import { connect } from "react-redux";
 import { handleFilter } from "../../redux/actions";
 
 function Filter({ handleFilter, filter }) {
-  //const [filterValue, setFilter] = useLocalSt("filterValue", "");
-
   const handleFilterChange = (e) => {
-    // setFilter(e.currentTarget.value);
     handleFilter(e.currentTarget.value);
   };
 

@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+//import { composeWithDevTools } from "redux-devtools-extension";
 
 const filterReducer = (state = "", { type, payload }) => {
   switch (type) {
@@ -17,9 +17,15 @@ const contactsReducer = (state = [], { type, payload }) => {
         alert("There is already contact with the same name");
         return state;
       }
+      window.localStorage.setItem(
+        "contacts",
+        JSON.stringify([...state, payload])
+      );
       return [...state, payload];
     case "DELETE_CONTACT":
-      return state.filter((contact) => contact.id !== payload);
+      const clearedContacts = state.filter((contact) => contact.id !== payload);
+      window.localStorage.setItem("contacts", JSON.stringify(clearedContacts));
+      return clearedContacts;
     default:
       return state;
   }
@@ -30,5 +36,7 @@ const rootReducer = combineReducers({
   contacts: contactsReducer,
 });
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(rootReducer, {
+  contacts: JSON.parse(localStorage.getItem("contacts")) || [],
+});
 export default store;
