@@ -2,7 +2,6 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import s from "./ContactForm.module.css";
 
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 
 import { submit } from "../../redux/actions";
@@ -74,9 +73,5 @@ function ContacsForm() {
     </form>
   );
 }
-
-ContacsForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
 
 export default ContacsForm;

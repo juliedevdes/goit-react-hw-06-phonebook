@@ -1,5 +1,4 @@
 import s from "./Filter.module.css";
-import PropTypes from "prop-types";
 
 import { useSelector, useDispatch } from "react-redux";
 import { handleFilter } from "../../redux/actions";
@@ -25,9 +24,5 @@ function Filter() {
     </label>
   );
 }
-
-Filter.propTypes = {
-  onChange: PropTypes.func,
-};
 
 export default Filter;
