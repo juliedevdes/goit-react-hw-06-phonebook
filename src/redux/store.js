@@ -1,42 +1,40 @@
-import { createStore, combineReducers } from "redux";
-//import { composeWithDevTools } from "redux-devtools-extension";
+import { configureStore, createReducer } from "@reduxjs/toolkit";
+import { handleFilter, deleteContact, submit } from "./actions";
 
-const filterReducer = (state = "", { type, payload }) => {
-  switch (type) {
-    case "HANDLE_FILTER":
-      return `${payload}`;
-    default:
-      return state;
-  }
-};
-
-const contactsReducer = (state = [], { type, payload }) => {
-  switch (type) {
-    case "SUBMIT":
-      if (state.some((el) => el.name === payload.name)) {
-        alert("There is already contact with the same name");
-        return state;
-      }
-      window.localStorage.setItem(
-        "contacts",
-        JSON.stringify([...state, payload])
-      );
-      return [...state, payload];
-    case "DELETE_CONTACT":
-      const clearedContacts = state.filter((contact) => contact.id !== payload);
-      window.localStorage.setItem("contacts", JSON.stringify(clearedContacts));
-      return clearedContacts;
-    default:
-      return state;
-  }
-};
-
-const rootReducer = combineReducers({
-  filter: filterReducer,
-  contacts: contactsReducer,
+const filterReducer = createReducer("", {
+  [handleFilter]: (_, { payload }) => `${payload}`,
 });
 
-const store = createStore(rootReducer, {
+const contactsReducer = createReducer([], {
+  [submit]: (state, { payload }) => {
+    if (state.some((el) => el.name === payload.name)) {
+      alert("There is already contact with the same name");
+      return state;
+    }
+    window.localStorage.setItem(
+      "contacts",
+      JSON.stringify([...state, payload])
+    );
+    return [...state, payload];
+  },
+  [deleteContact]: (state, { payload }) => {
+    const clearedContacts = state.filter((contact) => contact.id !== payload);
+    window.localStorage.setItem("contacts", JSON.stringify(clearedContacts));
+    return clearedContacts;
+  },
+});
+
+const storageContacts = {
   contacts: JSON.parse(localStorage.getItem("contacts")) || [],
+};
+
+const store = configureStore({
+  reducer: {
+    filter: filterReducer,
+    contacts: contactsReducer,
+  },
+  preloadedState: storageContacts,
+  devTools: process.env.NODE_ENV === "development",
 });
+
 export default store;

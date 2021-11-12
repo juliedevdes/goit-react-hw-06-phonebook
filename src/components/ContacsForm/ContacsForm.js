@@ -53,7 +53,7 @@ function ContacsForm({ onSubmit }) {
           required
         />
       </label>
-      <label className={s.label}>
+      <label className={s.labelNum}>
         number:
         <input
           className={s.inputNum}

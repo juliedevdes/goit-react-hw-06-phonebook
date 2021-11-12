@@ -1,14 +1,5 @@
-export const handleFilter = (value) => ({
-  type: "HANDLE_FILTER",
-  payload: value,
-});
+import { createAction } from "@reduxjs/toolkit";
 
-export const deleteContact = (id) => ({
-  type: "DELETE_CONTACT",
-  payload: id,
-});
-
-export const submit = (contact) => ({
-  type: "SUBMIT",
-  payload: contact,
-});
+export const handleFilter = createAction("HANDLE_FILTER");
+export const deleteContact = createAction("DELETE_CONTACT");
+export const submit = createAction("SUBMIT");

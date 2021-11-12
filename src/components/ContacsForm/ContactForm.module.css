@@ -25,7 +25,8 @@
     "Lucida Sans", Arial, sans-serif;
 }
 
-.label {
+.label,
+.labelNum {
   margin-left: 15px;
 }
 
@@ -73,4 +74,18 @@
 
 .btn:hover {
   outline: 0;
+}
+
+@media screen and (max-width: 900px) {
+  .btn {
+    display: block;
+    margin-top: 20px;
+  }
+  .inputNum {
+    margin-top: 15px;
+  }
+  .labelNum {
+    margin-left: 0;
+    display: block;
+  }
 }
