@@ -1,12 +1,15 @@
 import s from "./Filter.module.css";
 import PropTypes from "prop-types";
 
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { handleFilter } from "../../redux/actions";
 
-function Filter({ handleFilter, filter }) {
+function Filter() {
+  const dispatch = useDispatch();
+  const filter = useSelector((state) => state.filter);
+
   const handleFilterChange = (e) => {
-    handleFilter(e.currentTarget.value);
+    dispatch(handleFilter(e.currentTarget.value));
   };
 
   return (
@@ -27,12 +30,4 @@ Filter.propTypes = {
   onChange: PropTypes.func,
 };
 
-const mapStatetoProp = (state) => ({
-  filter: state.filter,
-});
-
-const mapDispatchToProp = (dispatch) => ({
-  handleFilter: (value) => dispatch(handleFilter(value)),
-});
-
-export default connect(mapStatetoProp, mapDispatchToProp)(Filter);
+export default Filter;

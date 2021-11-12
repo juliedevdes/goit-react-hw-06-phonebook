@@ -3,14 +3,16 @@ import { v4 as uuidv4 } from "uuid";
 import s from "./ContactForm.module.css";
 
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { submit } from "../../redux/actions";
 
-function ContacsForm({ onSubmit }) {
+function ContacsForm() {
   const [name, setName] = useState("");
   const [number, setNum] = useState("");
   const [id, setId] = useState(uuidv4());
+
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     const { name, value } = e.currentTarget;
@@ -28,7 +30,7 @@ function ContacsForm({ onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ name, number, id });
+    dispatch(submit({ name, number, id }));
     reset();
   };
 
@@ -77,8 +79,4 @@ ContacsForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProp = (dispatch) => ({
-  onSubmit: (contact) => dispatch(submit(contact)),
-});
-
-export default connect(null, mapDispatchToProp)(ContacsForm);
+export default ContacsForm;

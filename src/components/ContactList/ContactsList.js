@@ -1,9 +1,19 @@
 import ContasctsListItem from "../ContactsListItem/ContactsListItem";
 import s from "./ContactsList.module.css";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
 
-function ContasctsList({ contacts }) {
+import { useSelector } from "react-redux";
+
+function ContasctsList() {
+  const getVisibleContacts = (contacts, filter) => {
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
+
+  const contacts = useSelector((state) =>
+    getVisibleContacts(state.contacts, state.filter)
+  );
   return (
     <ul className={s.list}>
       {contacts.map((contact) => {
@@ -27,14 +37,4 @@ ContasctsList.propTypes = {
   ),
 };
 
-const getVisibleContacts = (contacts, filter) => {
-  return contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
-};
-
-const mapStatetoProp = (state) => ({
-  contacts: getVisibleContacts(state.contacts, state.filter),
-});
-
-export default connect(mapStatetoProp)(ContasctsList);
+export default ContasctsList;
